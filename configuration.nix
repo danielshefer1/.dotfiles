@@ -108,5 +108,5 @@
     };
   };
   services.greetd.settings.default_session.remember = true;
-
+  home-manager.backupFileExtension = "backup";
 }

@@ -7,12 +7,6 @@
     # Niri Window Manager
     niri.url = "github:sodiboo/niri-flake";
 
-    # DankMaterialShell
-    dms = {
-      url = "github:AvengeMedia/DankMaterialShell";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -24,7 +18,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, niri, dms, home-manager, ... }@inputs: {
+  outputs = { self, nixpkgs, niri, home-manager, ... }@inputs: {
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       specialArgs = { inherit inputs; };

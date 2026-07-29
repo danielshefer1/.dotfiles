@@ -1,7 +1,4 @@
 { pkgs, inputs, ... }: {
-  imports = [
-    inputs.dms.homeModules.default
-  ];
 
   home.username = "daniels";
   home.homeDirectory = "/home/daniels";
@@ -9,18 +6,11 @@
 
   # Primary Terminal
   programs.kitty.enable = true;
-
-  # DankMaterialShell
-  programs.dank-material-shell = {
-    enable = true;
-    enableDynamicTheming = true;
-  };
-
   # Configure Niri Keybindings & Auto-start
   programs.niri = {
     settings = {
       spawn-at-startup = [
-        { command = [ "dms" "run" ]; }
+        { command = [ "inir" "run" ]; }
       ];
 
       # Define default window manager keybindings
@@ -43,7 +33,7 @@
         "Mod+F".action.maximize-column = [];
         "Mod+A".action.toggle-window-floating = [];
         "Mod+Shift+E".action.quit = [];
-      };
+       };
     };
   };
 }
