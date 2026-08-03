@@ -26,6 +26,7 @@
     claude-code
     capitaine-cursors
     btop
+    discord
   ];
 
   # Let Home Manager manage itself
