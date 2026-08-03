@@ -9,6 +9,9 @@
       hotkey-overlay = {
         skip-at-startup = true;
       };
+      xwayland = {
+        enable = true;
+      };
 
       prefer-no-csd = true;
 
