@@ -9,8 +9,10 @@
       hotkey-overlay = {
         skip-at-startup = true;
       };
-      xwayland = {
+
+      xwayland-satellite = {
         enable = true;
+        path = "${pkgs.xwayland-satellite}/bin/xwayland-satellite";
       };
 
       prefer-no-csd = true;

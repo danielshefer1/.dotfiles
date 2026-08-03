@@ -1,0 +1,26 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(command -v steam)",
+      "Bash(flatpak list *)",
+      "Read(//home/daniels/**)",
+      "Bash(xhost)",
+      "Bash(xset q *)",
+      "Read(//nix/store/a5di83i2j3xpkfghx4fb7l5dk40q361m-xwayland-24.1.13/bin/**)",
+      "Bash(command -v Xwayland)",
+      "Read(//tmp/.X11-unix/**)",
+      "Bash(ps -o pid,comm -e)",
+      "Bash(niri --version)",
+      "Bash(command -v xwayland-satellite)",
+      "Read(//run/current-system/sw/bin/**)",
+      "Bash(ps -e -o pid,comm)",
+      "Bash(niri validate *)",
+      "Bash(grep -iA3 xwayland)",
+      "Read(//nix/store/**)",
+      "Bash(python3 -c \"import json;d=json.load\\(open\\('flake.lock'\\)\\);n=d['nodes'];k=[x for x in n if 'niri' in x.lower\\(\\)];[print\\(x, n[x].get\\('locked',{}\\).get\\('rev','?'\\)\\) for x in k]\")",
+      "Bash(python3 -c \"import json;d=json.load\\(open\\('flake.lock'\\)\\);n=d['nodes'];k=[x for x in n if x=='niri'][0];print\\(n[k]['locked']['narHash']\\)\")",
+      "Bash(systemctl --user show-environment)",
+      "Bash(nix eval *)"
+    ]
+  }
+}
