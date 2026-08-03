@@ -1,39 +1,39 @@
 { pkgs, inputs, ... }: {
 
+  imports = [
+    ./modules/home/niri.nix
+    ./modules/home/zsh.nix
+    ./modules/home/git.nix
+    ./modules/home/kitty.nix
+    ./modules/home/noctalia.nix
+    ./modules/home/vscode.nix
+    ./modules/home/xdg.nix
+    ./modules/home/cursor.nix
+    ./modules/home/starship.nix
+    ./modules/home/spicetify.nix
+    inputs.catppuccin.homeModules.catppuccin
+    inputs.spicetify-nix.homeManagerModules.default
+  ];
+
   home.username = "daniels";
   home.homeDirectory = "/home/daniels";
   home.stateVersion = "24.11";
 
-  # Primary Terminal
-  programs.kitty.enable = true;
-  # Configure Niri Keybindings & Auto-start
-  programs.niri = {
-    settings = {
-      spawn-at-startup = [
-        { command = [ "inir" "run" ]; }
-      ];
+  home.packages = with pkgs; [
+    ripgrep
+    nautilus
+    karere
+    claude-code
+    capitaine-cursors
+    btop
+  ];
 
-      # Define default window manager keybindings
-      binds = {
-        "Mod+Shift+Slash".action.show-hotkey-overlay = [];
-        "Mod+Q".action.spawn = [ "kitty" ];
-        "Mod+C".action.close-window = [];
+  # Let Home Manager manage itself
+  programs.home-manager.enable = true;
 
-        # Focus Movement
-        "Mod+Left".action.focus-column-left = [];
-        "Mod+Right".action.focus-column-right = [];
-        "Mod+Down".action.focus-window-or-workspace-down = [];
-        "Mod+Up".action.focus-window-or-workspace-up = [];
-
-        # Move Columns
-        "Mod+Ctrl+Left".action.move-column-left = [];
-        "Mod+Ctrl+Right".action.move-column-right = [];
-
-        # Layout & Workspaces
-        "Mod+F".action.maximize-column = [];
-        "Mod+A".action.toggle-window-floating = [];
-        "Mod+Shift+E".action.quit = [];
-       };
-    };
+  catppuccin = {
+    enable = true;
+    autoEnable = true;
+    flavor = "mocha";
   };
 }
