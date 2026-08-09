@@ -22,12 +22,12 @@
   home.packages = with pkgs; [
     ripgrep
     nautilus
-    karere
     claude-code
     capitaine-cursors
     btop
     discord
     whatsie
+    onlyoffice-bin
   ];
 
   # Let Home Manager manage itself
