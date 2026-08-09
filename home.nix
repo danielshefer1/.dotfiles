@@ -27,6 +27,7 @@
     capitaine-cursors
     btop
     discord
+    whatsie
   ];
 
   # Let Home Manager manage itself
