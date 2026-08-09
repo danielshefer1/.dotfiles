@@ -27,7 +27,7 @@
     btop
     discord
     whatsie
-    onlyoffice-bin
+    onlyoffice-desktopeditors
   ];
 
   # Let Home Manager manage itself
