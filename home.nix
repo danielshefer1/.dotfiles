@@ -28,7 +28,7 @@
     discord
     whatsie
     onlyoffice-desktopeditors
-    stremio
+    stremio-linux-shell
   ];
 
   # Let Home Manager manage itself
