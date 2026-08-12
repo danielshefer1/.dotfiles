@@ -19,7 +19,7 @@
       input_delay = 3;
       sync_to_monitor = "yes";
 
-      background_opacity = "0.95";
+      background_opacity = "0.8";
       dynamic_background_opacity = "yes";
 
       cursor_shape = "block";
