@@ -103,8 +103,8 @@
         "Mod+Ctrl+Right".action.move-column-right = [ ];
 
         # Layout & Workspaces
-        "Mod+F".action.toggle-maximize-column = [ ];
-        "Mod+Alt+F".action.toggle-fullscreen = [ ];
+        "Mod+F".action.maximize-column = [ ];
+        "Mod+Alt+F".action.fullscreen-window = [ ];
 
         "Mod+G".action.toggle-window-floating = [ ];
         "Mod+Shift+E".action.quit = [ ];
