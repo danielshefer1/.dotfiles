@@ -72,7 +72,7 @@
       input = {
         keyboard = {
           xkb = {
-            layout = "us, il";
+            layout = "us,il";
             options = "grp:alt_shift_toggle";
           };
           repeat-delay = 300;

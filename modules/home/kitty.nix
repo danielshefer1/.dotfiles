@@ -19,7 +19,7 @@
       input_delay = 3;
       sync_to_monitor = "yes";
 
-      background_opacity = "0.95";
+      background_opacity = "0.80";
       cursor_shape = "beam";
       cursor_blink_interval = 0;
     };
@@ -27,9 +27,9 @@
     keybindings = {
       "ctrl+shift+c" = "copy_to_clipboard";
       "ctrl+shift+v" = "paste_from_clipboard";
-      "ctrl+equal"   = "change_font_size all +1.0";
-      "ctrl+minus"   = "change_font_size all -1.0";
-      "ctrl+0"       = "change_font_size all 0";
+      "ctrl+equal" = "change_font_size all +1.0";
+      "ctrl+minus" = "change_font_size all -1.0";
+      "ctrl+0" = "change_font_size all 0";
     };
   };
 

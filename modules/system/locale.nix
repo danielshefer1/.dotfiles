@@ -17,7 +17,7 @@
   };
 
   services.xserver.xkb = {
-    layout = "us";
+    layout = "us,il";
     variant = "";
   };
 }
