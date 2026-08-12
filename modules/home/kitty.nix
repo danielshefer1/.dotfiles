@@ -23,7 +23,7 @@
       dynamic_background_opacity = "yes";
 
       cursor_shape = "block";
-      cursor_blink_interval = 0.3;
+      cursor_blink_interval = 0.5;
       cursor_trail = 3;
     };
 
