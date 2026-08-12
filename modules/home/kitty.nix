@@ -20,8 +20,11 @@
       sync_to_monitor = "yes";
 
       background_opacity = "0.80";
-      cursor_shape = "beam";
-      cursor_blink_interval = 0;
+      dynamic_background_opacity = "yes";
+
+      cursor_shape = "block";
+      cursor_blink_interval = 0.3;
+      cursor_trail = 3;
     };
 
     keybindings = {
