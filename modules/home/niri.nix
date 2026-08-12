@@ -56,7 +56,6 @@
 
           # Forces niri to treat the window as transparent and blur what's behind it
           draw-border-with-background = false;
-          blur-background = true;
         }
       ];
 
