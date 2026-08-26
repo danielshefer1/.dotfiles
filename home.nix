@@ -29,6 +29,7 @@
     whatsie
     onlyoffice-desktopeditors
     stremio-linux-shell
+    qalculate-gtk
   ];
 
   # Let Home Manager manage itself
