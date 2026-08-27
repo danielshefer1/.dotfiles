@@ -30,6 +30,7 @@
     onlyoffice-desktopeditors
     stremio-linux-shell
     qalculate-gtk
+    google-chrome
   ];
 
   # Let Home Manager manage itself
