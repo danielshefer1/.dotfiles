@@ -33,6 +33,7 @@
     google-chrome
     steam-run
     wine
+    lutris
   ];
 
   # Let Home Manager manage itself
