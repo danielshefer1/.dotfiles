@@ -34,6 +34,8 @@
     steam-run
     wine
     lutris
+    protontricks
+    qbittorrent
   ];
 
   # Let Home Manager manage itself
