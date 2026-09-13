@@ -32,7 +32,7 @@
     qalculate-gtk
     google-chrome
     steam-run
-    wineWow64Packages
+    wineWow64Packages.full
     lutris
     protontricks
     qbittorrent
