@@ -31,6 +31,8 @@
     stremio-linux-shell
     qalculate-gtk
     google-chrome
+    steam-run
+    wine
   ];
 
   # Let Home Manager manage itself
