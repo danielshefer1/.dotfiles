@@ -32,10 +32,11 @@
     qalculate-gtk
     google-chrome
     steam-run
-    wine
+    wineWowPackages.full
     lutris
     protontricks
     qbittorrent
+
   ];
 
   # Let Home Manager manage itself
