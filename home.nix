@@ -11,6 +11,7 @@
     ./modules/home/cursor.nix
     ./modules/home/starship.nix
     ./modules/home/spicetify.nix
+    ./modules/home/wine.nix
     inputs.catppuccin.homeModules.catppuccin
     inputs.spicetify-nix.homeManagerModules.default
   ];
@@ -32,7 +33,7 @@
     qalculate-gtk
     google-chrome
     steam-run
-    wineWow64Packages.full
+    wineWow64Packages.stable
     lutris
     protontricks
     qbittorrent
