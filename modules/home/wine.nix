@@ -12,7 +12,7 @@
     if [ ! -d "$WINEPREFIX" ]; then
       echo "Initializing 64-bit Wine prefix at $WINEPREFIX..."
       $DRY_RUN_CMD mkdir -p "$WINEPREFIX"
-      $DRY_RUN_CMD ${pkgs.wineWowPackages.stable}/bin/wineboot --init
+      $DRY_RUN_CMD ${pkgs.wineWow64Packages.stable}/bin/wineboot --init
     fi
   '';
 }
