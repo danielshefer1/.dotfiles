@@ -11,7 +11,7 @@
     export WINEARCH="win64"
     if [ ! -d "$WINEPREFIX" ]; then
       echo "Initializing 64-bit Wine prefix at $WINEPREFIX..."
-      ${pkgs.wineWowPackages.stable}/bin/wineboot --init
+      ${pkgs.wineWow64Packages.stable}/bin/wineboot --init
     fi
   '';
 }
