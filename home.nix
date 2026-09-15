@@ -39,6 +39,7 @@
     qbittorrent
     syncplay
     vlc
+    prismlauncher
   ];
 
   # Let Home Manager manage itself
