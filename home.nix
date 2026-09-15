@@ -37,7 +37,8 @@
     lutris
     protontricks
     qbittorrent
-
+    syncplay
+    vlc
   ];
 
   # Let Home Manager manage itself
