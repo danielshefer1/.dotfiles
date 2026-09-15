@@ -6,18 +6,8 @@
     ./modules/system/locale.nix
     ./modules/system/desktop.nix
     ./modules/system/steam.nix
+    ./modules/system/boot.nix
   ];
-
-  boot.loader = {
-    systemd-boot.enable = false;
-
-    limine = {
-      enable = true;
-      enableEditor = true;
-    };
-
-    efi.canTouchEfiVariables = true;
-  };
 
   # Networking
   networking.hostName = "nixos";
