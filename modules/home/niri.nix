@@ -147,6 +147,7 @@
         ];
         "Mod+D".action.spawn = [ "code" ];
         "Mod+A".action.spawn = [ "spotify" ];
+        "Mod+E".action.spawn = [ "nautilus" ];
       };
     };
   };
