@@ -16,6 +16,7 @@ in
       adblock
       hidePodcasts
       shuffle # shuffle+
+      sortPlay
     ];
 
     # Enable custom internal apps (optional)

@@ -1,5 +1,5 @@
 # starship.nix
-{ pkgs, ... }:
+{ ... }:
 
 {
   programs.starship = {
