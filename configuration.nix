@@ -58,20 +58,6 @@
     allowReboot = false;
   };
 
-  nixpkgs.overlays = [
-    (final: prev: {
-      # Alias the missing attribute
-      libdisplay-info_0_2 = prev.libdisplay-info.overrideAttrs (old: {
-        version = "0.2.0";
-      });
-
-      # Patch the main package's version attribute to satisfy niri-flake's assertion
-      libdisplay-info = prev.libdisplay-info.overrideAttrs (old: {
-        version = "0.2.0";
-      });
-    })
-  ];
-
   # Core System Packages
   environment.systemPackages = with pkgs; [
     vim
