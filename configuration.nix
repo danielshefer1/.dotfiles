@@ -43,7 +43,7 @@
 
   hardware.graphics = {
     enable = true;
-    enable32Bit = true; # Critical for Steam's X11 window rendering
+    enable32Bit = true;
   };
 
   system.autoUpgrade = {

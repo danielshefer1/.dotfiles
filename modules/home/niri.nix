@@ -71,7 +71,7 @@
           mode = {
             width = 1920;
             height = 1080;
-            refresh = 144.013; # Sets your MSI G24C4 to 144Hz
+            refresh = 144.013;
           };
           scale = 1.0;
         };
