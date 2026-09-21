@@ -58,6 +58,12 @@
     allowReboot = false;
   };
 
+  nixpkgs.overlays = [
+    (final: prev: {
+      libdisplay-info_0_2 = prev.libdisplay-info;
+    })
+  ];
+
   # Core System Packages
   environment.systemPackages = with pkgs; [
     vim
