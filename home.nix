@@ -40,6 +40,7 @@
     syncplay
     vlc
     prismlauncher
+    mailspring
   ];
 
   # Let Home Manager manage itself
