@@ -4,10 +4,7 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    niri = {
-      url = "github:epireyn/niri-flake";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    niri.url = "github:epireyn/niri-flake";
 
     home-manager = {
       url = "github:nix-community/home-manager";
