@@ -46,6 +46,18 @@
     enable32Bit = true; # Critical for Steam's X11 window rendering
   };
 
+  system.autoUpgrade = {
+    enable = true;
+    dates = "daily"; # Options: "daily", "weekly", "04:00", etc.
+    flake = "/home/daniels/.dotfiles";
+    flags = [
+      "--update-input"
+      "nixpkgs"
+      "--commit-lock-file"
+    ];
+    allowReboot = false;
+  };
+
   # Core System Packages
   environment.systemPackages = with pkgs; [
     vim
