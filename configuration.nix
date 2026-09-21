@@ -66,6 +66,7 @@
     tuigreet
     inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
     direnv
+    libdisplay-info
   ];
 
   system.stateVersion = "26.05";
