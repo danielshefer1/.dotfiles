@@ -12,6 +12,7 @@
     ./modules/home/starship.nix
     ./modules/home/spicetify.nix
     ./modules/home/wine.nix
+    ./modules/home/keyring.nix
     inputs.catppuccin.homeModules.catppuccin
     inputs.spicetify-nix.homeManagerModules.default
   ];
