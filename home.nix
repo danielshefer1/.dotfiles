@@ -13,6 +13,7 @@
     ./modules/home/spicetify.nix
     ./modules/home/wine.nix
     ./modules/home/keyring.nix
+    ./modules/home/systemd-user-services.nix
     inputs.catppuccin.homeModules.catppuccin
     inputs.spicetify-nix.homeManagerModules.default
   ];
