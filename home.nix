@@ -42,6 +42,7 @@
     vlc
     prismlauncher
     mailspring
+    rclone
   ];
 
   # Let Home Manager manage itself
