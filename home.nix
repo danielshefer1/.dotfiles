@@ -43,6 +43,7 @@
     prismlauncher
     mailspring
     rclone
+    pinta
   ];
 
   # Let Home Manager manage itself
