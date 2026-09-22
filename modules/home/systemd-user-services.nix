@@ -29,7 +29,7 @@
       };
     };
 
-    systemd.user.services.link-eden-world = {
+    link-eden-world = {
       Unit = {
         Description = "Symlink Minecraft World 'Playing with Eden' to Google Drive";
         After = [ "rclone-gdrive.service" ];
