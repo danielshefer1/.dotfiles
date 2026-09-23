@@ -58,7 +58,7 @@
     allowReboot = false;
   };
 
-  progams.nix-ld.enable = true;
+  programs.nix-ld.enable = true;
 
   # Core System Packages
   environment.systemPackages = with pkgs; [
