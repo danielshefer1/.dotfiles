@@ -58,6 +58,8 @@
     allowReboot = false;
   };
 
+  progams.nix-ld.enable = true;
+
   # Core System Packages
   environment.systemPackages = with pkgs; [
     vim
