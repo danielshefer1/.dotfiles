@@ -80,5 +80,6 @@
     rustc # Rust Compiler
     rustfmt # Code Formatter for Rust
     gcc # C Linker required by rustc
+    uv
   ];
 }

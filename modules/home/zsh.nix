@@ -48,6 +48,5 @@
     fd
     fzf
     fastfetch
-    uv
   ];
 }
