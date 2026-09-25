@@ -10,40 +10,44 @@
     # Profiles syntax (Home Manager 24.05+)
     profiles.default = {
       # Declarative Extensions
-      extensions = with pkgs.vscode-extensions; [
-        # Nix support
-        jnoortheen.nix-ide
+      extensions =
+        (with pkgs.vscode-extensions; [
+          # Nix support
+          jnoortheen.nix-ide
 
-        # C/C++ & Low-Level Development
-        ms-vscode.cpptools
+          # C/C++ & Low-Level Development
+          ms-vscode.cpptools
 
-        # Python / Tooling
-        ms-python.python
+          # Python / Tooling
+          ms-python.python
 
-        # Rust / Tooling
-        rust-lang.rust-analyzer
+          # Rust / Tooling
+          rust-lang.rust-analyzer
 
-        # Docker / Container Development
-        ms-azuretools.vscode-containers
+          # Docker / Container Development
+          ms-azuretools.vscode-containers
 
-        # EditorConfig support
-        editorconfig.editorconfig
+          # EditorConfig support
+          editorconfig.editorconfig
 
-        # Git support
-        donjayamanne.githistory
+          # Git support
+          donjayamanne.githistory
+          github.vscode-github-actions
 
-        # SQL Server / Database Development
-        # Not packaged in nixpkgs -- install from the Marketplace UI, or add the
-        # nix-vscode-extensions flake input to get them declaratively.
-        # ms-mssql.mssql
-        # mtxr.sqltools
+          # Markdown support
+          davidanson.vscode-markdownlint
 
-        # Theme
-        catppuccin.catppuccin-vsc
+          # Theme
+          catppuccin.catppuccin-vsc
 
-        # Formatting & Linting
-        esbenp.prettier-vscode
-      ];
+          # Formatting & Linting
+          esbenp.prettier-vscode
+        ])
+        ++ (with pkgs.vscode-marketplace; [
+          # SQL Server / Database Development (not packaged in nixpkgs)
+          ms-mssql.mssql
+          mtxr.sqltools
+        ]);
 
       userSettings = {
         "editor.fontSize" = 14;
