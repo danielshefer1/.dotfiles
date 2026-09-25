@@ -24,6 +24,10 @@
 
   home.packages = with pkgs; [
     ripgrep
+    docker-compose
+    postgresql_16
+    railway
+    github-cli
     nautilus
     claude-code
     capitaine-cursors

@@ -25,12 +25,18 @@
     extraGroups = [
       "networkmanager"
       "wheel"
+      "docker"
     ];
     shell = pkgs.zsh;
   };
 
   # System Shell Enablement
   programs.zsh.enable = true;
+
+  virtualisation.docker = {
+    enable = true;
+    autoPrune.enable = true;
+  };
 
   # Nix & Package Management Settings
   nixpkgs.config.allowUnfree = true;
