@@ -23,6 +23,19 @@
         # Rust / Tooling
         rust-lang.rust-analyzer
 
+        # Docker / Container Development
+        ms-azuretools.vscode-containers
+
+        # EditorConfig support
+        EditorConfig.EditorConfig
+
+        # Git support
+        donjayamanne.githistory
+
+        # SQL Server / Database Development
+        ms-mssql.mssql
+        mtxr.sqltools
+
         # Theme
         catppuccin.catppuccin-vsc
 
