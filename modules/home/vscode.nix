@@ -27,14 +27,16 @@
         ms-azuretools.vscode-containers
 
         # EditorConfig support
-        EditorConfig.EditorConfig
+        editorconfig.editorconfig
 
         # Git support
         donjayamanne.githistory
 
         # SQL Server / Database Development
-        ms-mssql.mssql
-        mtxr.sqltools
+        # Not packaged in nixpkgs -- install from the Marketplace UI, or add the
+        # nix-vscode-extensions flake input to get them declaratively.
+        # ms-mssql.mssql
+        # mtxr.sqltools
 
         # Theme
         catppuccin.catppuccin-vsc
