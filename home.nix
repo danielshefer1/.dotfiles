@@ -50,6 +50,7 @@
     mailspring
     rclone
     pinta
+    yazi
   ];
 
   # Let Home Manager manage itself

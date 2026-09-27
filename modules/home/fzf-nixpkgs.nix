@@ -42,6 +42,7 @@ let
       fzf-nixpkgs
       pkgs.gawk
       pkgs.coreutils
+      pkgs.git
     ];
     text = ''
       nix_file="''${NIX_ADD_FILE:-$HOME/.dotfiles/home.nix}"
@@ -124,7 +125,15 @@ let
           ;;
       esac
 
-      exec nix-git-rebuild
+      dotfiles="$(dirname "$nix_file")"
+
+      # Same as the nix-git alias; `|| true` mirrors the `;` in nix-git-rebuild,
+      # so the rebuild still runs even if there's nothing to commit.
+      git -C "$dotfiles" add . \
+        && git -C "$dotfiles" commit -m "Add $pkg" \
+        || true
+
+      exec sudo nixos-rebuild switch --flake "$dotfiles#nixos"
     '';
   };
 in
