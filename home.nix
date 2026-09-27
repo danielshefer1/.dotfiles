@@ -14,6 +14,7 @@
     ./modules/home/wine.nix
     ./modules/home/keyring.nix
     ./modules/home/systemd-user-services.nix
+    ./modules/home/fzf-nixpkgs.nix
     inputs.catppuccin.homeModules.catppuccin
     inputs.spicetify-nix.homeManagerModules.default
   ];
