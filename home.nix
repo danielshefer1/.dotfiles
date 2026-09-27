@@ -51,6 +51,7 @@
     rclone
     pinta
     yazi
+    python314Packages.pyuv
   ];
 
   # Let Home Manager manage itself
