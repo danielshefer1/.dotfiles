@@ -7,6 +7,7 @@
     ./modules/system/desktop.nix
     ./modules/system/steam.nix
     ./modules/system/boot.nix
+    ./modules/system/xdg.nix
   ];
 
   # Networking

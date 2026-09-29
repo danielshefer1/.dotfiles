@@ -7,7 +7,6 @@
     ./modules/home/kitty.nix
     ./modules/home/noctalia.nix
     ./modules/home/vscode.nix
-    ./modules/home/xdg.nix
     ./modules/home/cursor.nix
     ./modules/home/starship.nix
     ./modules/home/spicetify.nix
