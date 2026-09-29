@@ -11,10 +11,6 @@
       common = {
         default = [ "gtk" ];
       };
-      niri.deafault = [
-        "gtk"
-        "gnome"
-      ];
     };
   };
 }

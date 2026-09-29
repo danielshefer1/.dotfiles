@@ -8,6 +8,7 @@
     ./modules/system/steam.nix
     ./modules/system/boot.nix
     ./modules/system/xdg.nix
+    ./modules/system/nvidia.nix
   ];
 
   # Networking
