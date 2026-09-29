@@ -52,6 +52,7 @@
     yazi
     unzip
     gzip
+    zip
   ];
 
   # Let Home Manager manage itself
