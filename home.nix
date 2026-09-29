@@ -50,6 +50,7 @@
     rclone
     pinta
     yazi
+    unzip
   ];
 
   # Let Home Manager manage itself
