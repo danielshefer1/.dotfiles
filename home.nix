@@ -46,7 +46,6 @@
     syncplay
     vlc
     prismlauncher
-    mailspring
     rclone
     pinta
     yazi
