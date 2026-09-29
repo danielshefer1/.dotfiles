@@ -51,6 +51,7 @@
     pinta
     yazi
     unzip
+    gzip
   ];
 
   # Let Home Manager manage itself
