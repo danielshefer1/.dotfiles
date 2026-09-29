@@ -1,6 +1,9 @@
 { pkgs, ... }:
 
 {
+  # rclone CLI, for `rclone config` etc. alongside the mount service
+  home.packages = [ pkgs.rclone ];
+
   systemd.user.services = {
     rclone-gdrive = {
       Unit = {

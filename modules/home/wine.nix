@@ -1,6 +1,8 @@
 { config, pkgs, ... }:
 
 {
+  home.packages = [ pkgs.wineWow64Packages.stable ];
+
   home.sessionVariables = {
     WINEPREFIX = "$HOME/.local/share/wineprefixes/default";
     WINEARCH = "win64";
