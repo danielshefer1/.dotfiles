@@ -8,5 +8,6 @@
     github-cli
     claude-code
     nodejs_24
+    cloudflared
   ];
 }
