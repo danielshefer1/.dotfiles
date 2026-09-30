@@ -18,5 +18,6 @@
     ./modules/system/boot.nix
     ./modules/system/xdg.nix
     ./modules/system/nvidia.nix
+    ./modules/system/upower.nix
   ];
 }
