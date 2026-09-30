@@ -8,5 +8,6 @@
     unzip
     gzip
     zip
+    usbutils
   ];
 }
