@@ -8,7 +8,5 @@
     onlyoffice-desktopeditors
     qalculate-gtk
     google-chrome
-    disktui
-    impression
   ];
 }
