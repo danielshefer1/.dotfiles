@@ -4,6 +4,9 @@
   # System-wide Niri integration
   programs.niri.enable = true;
 
+  # Setuid pkexec wrapper (opt-in on recent nixpkgs), needed by GUI apps like gparted
+  security.polkit.enablePkexecWrapper = true;
+
   # Display Manager / Greeter
   services.greetd = {
     enable = true;
