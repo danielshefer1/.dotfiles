@@ -16,6 +16,7 @@
     ./modules/system/desktop.nix
     ./modules/system/steam.nix
     ./modules/system/localsend.nix
+    ./modules/system/storage.nix
     ./modules/system/boot.nix
     ./modules/system/xdg.nix
     ./modules/system/nvidia.nix
