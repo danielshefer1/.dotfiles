@@ -8,6 +8,5 @@
     onlyoffice-desktopeditors
     qalculate-gtk
     google-chrome
-    localsend
   ];
 }
