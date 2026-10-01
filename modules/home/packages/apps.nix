@@ -9,5 +9,6 @@
     qalculate-gtk
     google-chrome
     disktui
+    impression
   ];
 }
