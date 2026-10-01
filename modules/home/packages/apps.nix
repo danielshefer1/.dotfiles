@@ -9,6 +9,5 @@
     qalculate-gtk
     google-chrome
     disktui
-    gparted
   ];
 }
