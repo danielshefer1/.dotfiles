@@ -14,5 +14,6 @@
     mpvpaper
     mpv
     socat
+    hyprpaper
   ];
 }
