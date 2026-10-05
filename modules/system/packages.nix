@@ -15,5 +15,6 @@
     mpv
     socat
     hyprpicker
+    nix-search-tv
   ];
 }
