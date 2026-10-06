@@ -29,6 +29,8 @@
       ll = "eza -lh --icons --group-directories-first";
       la = "eza -lah --icons --group-directories-first";
       cat = "bat --paging=never";
+
+      torlnk = "npx torlnk";
     };
 
     initContent = ''
