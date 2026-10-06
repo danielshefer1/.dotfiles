@@ -10,5 +10,6 @@
     cloudflared
     python3
     libqalculate
+    nodejs_latest
   ];
 }
