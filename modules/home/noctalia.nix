@@ -28,6 +28,9 @@
         };
       };
 
+      # Push wallpaper/palette/font changes to noctalia-greeter automatically
+      shell.greeter_sync.auto_sync = true;
+
       colorSchemes = {
         predefinedScheme = "Monochrome";
       };

@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ ... }:
 
 {
   # System-wide Niri integration
@@ -7,14 +7,14 @@
   # Setuid pkexec wrapper (opt-in on recent nixpkgs), needed by GUI apps like gparted
   security.polkit.enablePkexecWrapper = true;
 
-  # Display Manager / Greeter
+  # Display Manager / Greeter (noctalia-greeter sets greetd's default_session command)
+  services.displayManager.noctalia-greeter = {
+    enable = true;
+    # Let Noctalia sync its theme to the greeter without an admin prompt
+    passwordlessSyncUsers = [ "daniels" ];
+  };
   services.greetd = {
     enable = true;
-    settings = {
-      default_session = {
-        command = "${pkgs.tuigreet}/bin/tuigreet --time --asterisks --user-menu --remember --cmd niri-session";
-        user = "greeter";
-      };
-    };
+    settings.default_session.user = "greeter";
   };
 }
