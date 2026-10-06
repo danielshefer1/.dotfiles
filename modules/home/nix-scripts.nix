@@ -1,34 +1,76 @@
 { pkgs, ... }:
 let
-  fzf-nixpkgs = pkgs.writeShellApplication {
-    name = "fzf-nixpkgs";
+  # Picks a package from nixpkgs + NUR (as `nur.repos.<owner>.<pkg>`) and
+  # prints its dotted attr path. Each source is cached separately as
+  # `attr \t version \t description \t source`.
+  fzf-packages = pkgs.writeShellApplication {
+    name = "fzf-packages";
     runtimeInputs = with pkgs; [
       fzf
       jq
+      curl
       coreutils
       findutils
     ];
     text = ''
-      cache_dir="''${XDG_CACHE_HOME:-$HOME/.cache}/fzf-nixpkgs"
-      cache="$cache_dir/packages.tsv"
+      cache_dir="''${XDG_CACHE_HOME:-$HOME/.cache}/fzf-packages"
       mkdir -p "$cache_dir"
 
-      # Rebuild if missing, older than a day, or --refresh given
-      if [ ! -s "$cache" ] || [ "''${1:-}" = "--refresh" ] \
-         || [ -n "$(find "$cache" -mtime +1)" ]; then
-        echo "Indexing nixpkgs..." >&2
+      nur_index=https://raw.githubusercontent.com/nix-community/nur-search/master/data/packages.json
+
+      index_nixpkgs() {
         nix search nixpkgs '^' --json \
           | jq -r 'to_entries[]
               | [(.key | split(".") | .[2:] | join(".")),
                  .value.version,
-                 (.value.description // "")] | @tsv' \
-          > "$cache.tmp"
-        mv "$cache.tmp" "$cache"
+                 (.value.description // ""),
+                 "nixpkgs"] | @tsv'
+      }
+
+      # Keys are already full attr paths (nur.repos.<owner>.<pkg>)
+      index_nur() {
+        curl -fsSL "$nur_index" \
+          | jq -r 'to_entries[]
+              | select(.value.meta.broken != true)
+              | [.key,
+                 (.value.version // ""),
+                 (.value.meta.description // ""),
+                 "nur"] | @tsv'
+      }
+
+      # Rebuild if missing, older than a day, or --refresh given.
+      # On failure, keep whatever cache was there.
+      refresh() {
+        local cache="$cache_dir/$1.tsv"
+        if [ ! -s "$cache" ] || [ "''${2:-}" = "--refresh" ] \
+           || [ -n "$(find "$cache" -mtime +1)" ]; then
+          echo "Indexing $1..." >&2
+          if "index_$1" > "$cache.tmp" && [ -s "$cache.tmp" ]; then
+            mv "$cache.tmp" "$cache"
+          else
+            rm -f "$cache.tmp"
+            echo "warning: couldn't index $1" >&2
+          fi
+        fi
+      }
+
+      sources=()
+      for s in nixpkgs nur; do
+        refresh "$s" "''${1:-}"
+        if [ -s "$cache_dir/$s.tsv" ]; then
+          sources+=("$cache_dir/$s.tsv")
+        fi
+      done
+
+      if [ ''${#sources[@]} -eq 0 ]; then
+        echo "error: no package index available" >&2
+        exit 1
       fi
 
-      pkg=$(fzf --delimiter='\t' \
-              --preview 'echo {3}' --preview-window=down,3,wrap \
-              < "$cache" | cut -f1) || exit 0
+      pkg=$(cat "''${sources[@]}" \
+              | fzf --delimiter='\t' --with-nth=1,2,4 \
+                    --preview 'echo {3}' --preview-window=down,3,wrap \
+              | cut -f1) || exit 0
 
       if [ -n "$pkg" ]; then
         echo "$pkg"
@@ -37,8 +79,9 @@ let
   };
 
   # Walks a file's `home.packages = ... [ ... ]` list. With list=1, prints each
-  # single-identifier entry (sans `pkgs.`); otherwise prints the file with
-  # every entry named in `remove` (newline-separated) dropped.
+  # single-attr-path entry in canonical form (sans `pkgs.` and quotes, so
+  # `nur.repos."0x4A6F".foo` -> `nur.repos.0x4A6F.foo`); otherwise prints the
+  # file with every entry named in `remove` (newline-separated) dropped.
   # Exits 3 if the list isn't found, 2 if some requested entry wasn't removed.
   packages-awk = pkgs.writeText "packages.awk" ''
     function count(s, re,   t) { t = s; return gsub(re, "", t) }
@@ -56,8 +99,9 @@ let
       newdepth = depth + opens - count(line, "\\]")
 
       if (depth == 1 && newdepth == 1 \
-          && line ~ /^[[:space:]]*[A-Za-z0-9_.+-]+[[:space:]]*$/) {
+          && line ~ /^[[:space:]]*[A-Za-z0-9_.+"-]+[[:space:]]*$/) {
         pkg = line; gsub(/[[:space:]]/, "", pkg); sub(/^pkgs\./, "", pkg)
+        gsub(/"/, "", pkg)
         if (list) print pkg
         else if ((pkg in want) && !(pkg in gone)) { gone[pkg] = 1; ngone++; next }
       }
@@ -110,12 +154,27 @@ let
         done <<< "$list"
       done <<< "$(topics)"
     }
+
+    # Canonical dotted attr path -> Nix syntax, quoting segments that aren't
+    # plain identifiers (e.g. NUR owners like `0x4A6F`)
+    nix_attr() {
+      awk -F. '{
+        for (i = 1; i <= NF; i++) {
+          s = $i
+          if (s !~ /^[A-Za-z_][A-Za-z0-9_-]*$/ \
+              || s ~ /^(if|then|else|assert|with|let|in|rec|inherit)$/)
+            s = "\"" s "\""
+          printf "%s%s", (i > 1 ? "." : ""), s
+        }
+        print ""
+      }' <<< "$1"
+    }
   '';
 
   nix-add = pkgs.writeShellApplication {
     name = "nix-add";
     runtimeInputs = [
-      fzf-nixpkgs
+      fzf-packages
       pkgs.fzf
       pkgs.gawk
       pkgs.coreutils
@@ -126,8 +185,9 @@ let
       ${packages-lib}
 
       # Pass args through (e.g. --refresh)
-      pkg=$(fzf-nixpkgs "$@") || exit 0
+      pkg=$(fzf-packages "$@") || exit 0
       [ -n "$pkg" ] || exit 0
+      attr=$(nix_attr "$pkg")
 
       existing=$(installed | awk -F'\t' -v p="$pkg" '$1 == p { print $2 }')
       if [ -n "$existing" ]; then
@@ -153,6 +213,11 @@ let
         exit 1
       fi
 
+      # The NUR index tracks NUR's latest; bump the pinned input so it has $pkg
+      if [[ "$pkg" == nur.repos.* ]]; then
+        nix flake update nur --flake "$dotfiles"
+      fi
+
       nix_file="$pkg_dir/$topic.nix"
 
       if [ ! -e "$nix_file" ]; then
@@ -161,7 +226,7 @@ let
 
       {
         home.packages = with pkgs; [
-          $pkg
+          $attr
         ];
       }
       EOF
@@ -173,7 +238,7 @@ let
         # Find `home.packages = ... [`, follow bracket depth to its closing `]`,
         # insert the package just before it with the list's indentation.
         # Uses a `pkgs.` prefix unless the list is `with pkgs; [ ... ]`.
-        if ! awk -v pkg="$pkg" '
+        if ! awk -v pkg="$attr" '
           function count(s, re,   t) { t = s; return gsub(re, "", t) }
 
           !done && !inlist && /home\.packages[[:space:]]*=/ {
@@ -243,9 +308,12 @@ let
         exit 0
       fi
 
+      # Align the topic column past the longest name (NUR paths run long)
+      width=$(awk -F'\t' 'length($1) > w { w = length($1) } END { print w + 2 }' <<< "$all")
+
       # Tab / Shift-Tab to mark several
       selected=$(fzf --multi --prompt='remove> ' \
-                   --delimiter='\t' --tabstop=32 \
+                   --delimiter='\t' --tabstop="$width" \
                    --header='Tab to select multiple, Enter to remove' \
                    <<< "$all") || exit 0
       [ -n "$selected" ] || exit 0
@@ -287,7 +355,7 @@ let
 in
 {
   home.packages = [
-    fzf-nixpkgs
+    fzf-packages
     nix-add
     nix-remove
   ];

@@ -3,7 +3,11 @@
 {
   # Nix & Package Management Settings
   nixpkgs.config.allowUnfree = true;
-  nixpkgs.overlays = [ inputs.nix-vscode-extensions.overlays.default ];
+  nixpkgs.overlays = [
+    inputs.nix-vscode-extensions.overlays.default
+    # Exposes pkgs.nur.repos.<owner>.<pkg>
+    inputs.nur.overlays.default
+  ];
   nix.settings.experimental-features = [
     "nix-command"
     "flakes"
