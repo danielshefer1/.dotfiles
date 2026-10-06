@@ -9,5 +9,6 @@
     claude-code
     nodejs_24
     cloudflared
+    python3
   ];
 }
