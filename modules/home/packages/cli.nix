@@ -9,5 +9,6 @@
     gzip
     zip
     usbutils
+    jq
   ];
 }
