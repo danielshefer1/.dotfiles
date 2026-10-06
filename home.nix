@@ -18,5 +18,6 @@
     ./modules/home/keyring.nix
     ./modules/home/systemd-user-services.nix
     ./modules/home/nix-scripts.nix
+    ./modules/home/fzf-claude.nix
   ];
 }
