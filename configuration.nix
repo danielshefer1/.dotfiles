@@ -9,7 +9,6 @@
     ./modules/system/docker.nix
     ./modules/system/nix.nix
     ./modules/system/graphics.nix
-    ./modules/system/auto-upgrade.nix
     ./modules/system/packages.nix
     ./modules/system/state-version.nix
     ./modules/system/locale.nix
