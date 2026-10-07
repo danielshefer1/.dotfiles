@@ -11,5 +11,6 @@
     python3
     libqalculate
     nodejs_latest
+    pipx
   ];
 }
