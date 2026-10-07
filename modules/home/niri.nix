@@ -137,6 +137,24 @@
           "session"
         ];
 
+        # Screenshots
+        "Print".action.spawn = [
+          "noctalia"
+          "msg"
+          "screenshot-region"
+        ];
+        "Ctrl+Print".action.spawn = [
+          "noctalia"
+          "msg"
+          "screenshot-fullscreen"
+        ];
+        "Alt+Print".action.screenshot-window = [ ];
+        "Mod+Shift+S".action.spawn = [
+          "noctalia"
+          "msg"
+          "screenshot-annotate"
+        ];
+
         "Mod+Q".action.spawn = [ "kitty" ];
         "Mod+Slash".action.spawn = [ "kitty" ];
         "Mod+B".action.spawn = [ "zen" ];
