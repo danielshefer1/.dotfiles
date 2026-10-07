@@ -24,12 +24,14 @@ in
       # writes into starship.toml (Catppuccin-compatible names)
       palette = "noctalia";
 
+      # Pills use surface1, not surface0: noctalia maps surface0 to the terminal background, and
+      # kitty renders cells with that exact background as transparent (background_opacity).
       # Each segment is a self-contained pill, so its colors never depend on its neighbours. The
       # ( ) groups render only when a module inside them has output, so e.g. the git pill vanishes
       # outside a repo instead of leaving an empty block.
       format = builtins.concatStringsSep "" [
         "[](fg:blue)$os$username[](fg:blue) "
-        "[](fg:surface0)$directory[](fg:surface0) "
+        "[](fg:surface1)$directory[](fg:surface1) "
         "([](fg:green)$git_branch$git_status[](fg:green) )"
         "([](fg:yellow)$c$rust$golang$nodejs$python$nix_shell[](fg:yellow))"
         "$fill"
@@ -70,7 +72,7 @@ in
       };
 
       directory = {
-        style = "bg:surface0 fg:text";
+        style = "bg:surface1 fg:text";
         format = "[ $path ]($style)";
         truncation_length = 3;
       };
