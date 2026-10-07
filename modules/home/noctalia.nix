@@ -1,4 +1,10 @@
-{ config, inputs, lib, ... }:
+{
+  config,
+  inputs,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   imports = [
@@ -15,6 +21,29 @@
     fi
   '';
 
+  # The fastfetch template's hook merges colors into config.jsonc and bails if it doesn't exist.
+  # An empty object keeps fastfetch's default modules.
+  home.activation.fastfetchNoctaliaConfig = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    fastfetch_config="${config.xdg.configHome}/fastfetch/config.jsonc"
+    if [ ! -e "$fastfetch_config" ]; then
+      run install -D -m644 ${pkgs.writeText "fastfetch-config.jsonc" "{}\n"} "$fastfetch_config"
+    fi
+  '';
+
+  # Point qt5ct/qt6ct at the color schemes rendered by the qt template
+  qt = {
+    enable = true;
+    platformTheme.name = "qtct";
+    qt5ctSettings.Appearance = {
+      custom_palette = true;
+      color_scheme_path = "${config.xdg.configHome}/qt5ct/colors/noctalia.conf";
+    };
+    qt6ctSettings.Appearance = {
+      custom_palette = true;
+      color_scheme_path = "${config.xdg.configHome}/qt6ct/colors/noctalia.conf";
+    };
+  };
+
   # Written to ~/.config/noctalia/config.toml
   programs.noctalia = {
     enable = true;
@@ -24,9 +53,30 @@
 
       bar.main = {
         position = "top";
-        start = [ "launcher" "wallpaper" "mpvpaper" "workspaces" "ribbon" ];
-        center = [ "nix-monitor" "media" "audio_visualizer" "notifications" "clipboard" "color-picker" "calculator" ];
-        end = [ "network" "sysmon" "bluetooth" "volume" "control-center" "session" ];
+        start = [
+          "launcher"
+          "wallpaper"
+          "mpvpaper"
+          "workspaces"
+          "ribbon"
+        ];
+        center = [
+          "nix-monitor"
+          "media"
+          "audio_visualizer"
+          "notifications"
+          "clipboard"
+          "color-picker"
+          "calculator"
+        ];
+        end = [
+          "network"
+          "sysmon"
+          "bluetooth"
+          "volume"
+          "control-center"
+          "session"
+        ];
       };
 
       # Plugin widget instances referenced from the bar above
@@ -55,11 +105,27 @@
       ];
 
       idle = {
-        behavior_order = [ "lock" "screen-off" "lock-and-suspend" ];
+        behavior_order = [
+          "lock"
+          "screen-off"
+          "lock-and-suspend"
+        ];
         behavior = {
-          lock = { action = "lock"; enabled = true; timeout = 600.0; };
-          screen-off = { action = "screen_off"; enabled = true; timeout = 660.0; };
-          lock-and-suspend = { action = "lock_and_suspend"; enabled = true; timeout = 900.0; };
+          lock = {
+            action = "lock";
+            enabled = true;
+            timeout = 600.0;
+          };
+          screen-off = {
+            action = "screen_off";
+            enabled = false;
+            timeout = 660.0;
+          };
+          lock-and-suspend = {
+            action = "lock_and_suspend";
+            enabled = false;
+            timeout = 900.0;
+          };
         };
       };
 
@@ -82,8 +148,28 @@
         builtin = "Catppuccin";
         wallpaper_scheme = "m3-content";
         templates = {
-          builtin_ids = [ "btop" "gtk3" "gtk4" "kitty" "niri" "qt" "starship" ];
-          community_ids = [ "claude-code" "discord" "prismlauncher" "steam" "fastfetch" "mailspring" ];
+          builtin_ids = [
+            "btop"
+            "gtk3"
+            "gtk4"
+            "niri"
+            "qt"
+            "starship"
+          ];
+          community_ids = [
+            "claude-code"
+            "discord"
+            "prismlauncher"
+            "steam"
+            "fastfetch"
+          ];
+          # Replaces the builtin kitty template, whose hook edits kitty.conf (a read-only store
+          # symlink) and so never reaches its reload. kitty.nix includes the rendered file.
+          user.kitty = {
+            input_path = "${config.programs.noctalia.package}/share/noctalia/assets/templates/kitty/kitty.conf";
+            output_path = "${config.xdg.configHome}/kitty/themes/noctalia.conf";
+            post_hook = "pkill -USR1 kitty || true";
+          };
         };
       };
 

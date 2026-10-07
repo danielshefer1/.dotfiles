@@ -1,8 +1,12 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
   programs.niri = {
     settings = {
+      # Rendered by noctalia's niri template (border, focus-ring, tab colors). Absolute path because
+      # config.kdl is a store symlink; optional so niri still starts before noctalia's first render.
+      includes = [ (config.lib.niri.include.optional "${config.xdg.configHome}/niri/noctalia.kdl") ];
+
       spawn-at-startup = [
         { command = [ "noctalia" ]; }
       ];
@@ -21,15 +25,10 @@
         # iNiR aesthetic uses compact, modern gaps
         gaps = 8;
 
-        # Primary active/inactive border styling
+        # Primary active/inactive border styling; colors come from noctalia.kdl
         border = {
           enable = true;
           width = 2;
-
-          # Material-inspired active focus color and subtle dim inactive color
-          # (These update dynamically if you run iNiR's matugen color pipeline)
-          active.color = "#a8c7fa"; # Material Primary Accent
-          inactive.color = "#282a36"; # Subtle dark surface outline
         };
 
         # Disable focus-ring to match iNiR's crisp single-border look

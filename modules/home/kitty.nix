@@ -34,6 +34,9 @@
       "ctrl+minus" = "change_font_size all -1.0";
       "ctrl+0" = "change_font_size all 0";
     };
+
+    # Colors rendered by noctalia's kitty template (see noctalia.nix)
+    extraConfig = "include themes/noctalia.conf";
   };
 
   home.packages = with pkgs; [
