@@ -1,7 +1,17 @@
-{ inputs, pkgs, ... }:
+{
+  config,
+  inputs,
+  pkgs,
+  ...
+}:
 let
   # Get access to available spicetify packages/extensions/themes
   spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.stdenv.hostPlatform.system};
+  cfg = config.programs.spicetify;
+
+  # Rendered by noctalia (see noctalia.nix). Spotify reads it at startup, so palette changes show
+  # up after restarting Spotify.
+  noctaliaColors = "${config.xdg.configHome}/spicetify/noctalia-colors.css";
 in
 {
   imports = [
@@ -9,11 +19,12 @@ in
   ];
 
   programs.spicetify = {
-    enable = true;
+    # The module would install the spiced package as-is; it's installed below with colors.css
+    # swapped for noctalia's instead.
+    enable = false;
 
-    # Pick a theme (e.g., Catppuccin, Nord, TokyoNight, etc.)
-    theme = spicePkgs.themes.catppuccin;
-    colorScheme = "mocha";
+    theme = spicePkgs.themes.comfy;
+    colorScheme = "Comfy";
 
     # Enable custom extensions
     enabledExtensions = with spicePkgs.extensions; [
@@ -34,4 +45,16 @@ in
       pointer
     ];
   };
+
+  home.packages = [
+    (cfg.spicedSpotify.overrideAttrs (old: {
+      # Runs after `spicetify apply` in the builder's postInstall
+      postInstall = old.postInstall + ''
+        ln -sf '${noctaliaColors}' "$out/share/spotify/Apps/xpui/colors.css"
+      '';
+      # The link target only exists in $HOME
+      dontCheckForBrokenSymlinks = true;
+    }))
+  ]
+  ++ cfg.theme.extraPkgs;
 }

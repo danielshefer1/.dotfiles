@@ -1,5 +1,13 @@
-{ pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
+let
+  noctaliaTheme = pkgs.vscode-marketplace.noctalia.noctaliatheme;
+in
 {
   programs.vscode = {
     enable = true;
@@ -37,9 +45,6 @@
           # Markdown support
           davidanson.vscode-markdownlint
 
-          # Theme
-          catppuccin.catppuccin-vsc
-
           # Formatting & Linting
           esbenp.prettier-vscode
         ])
@@ -52,7 +57,7 @@
       userSettings = {
         "editor.fontSize" = 14;
         "editor.fontFamily" = "'JetBrainsMono Nerd Font', 'monospace'";
-        "workbench.colorTheme" = "Catppuccin Mocha";
+        "workbench.colorTheme" = "NoctaliaTheme";
         "terminal.integrated.defaultProfile.linux" = "zsh";
 
         "editor.formatOnSave" = true;
@@ -101,4 +106,17 @@
     gcc # C Linker required by rustc
     uv
   ];
+
+  # Noctalia's vscode template rewrites this extension's theme file in place, so it gets a writable
+  # copy at the exact path the template targets instead of a store symlink (-n keeps a theme file
+  # noctalia already rendered). Dropping extensions.json makes VS Code rescan and register it.
+  home.activation.noctaliaVscodeTheme = lib.hm.dag.entryAfter [ "linkGeneration" ] ''
+    extensions="${config.home.homeDirectory}/.vscode/extensions"
+    theme_dir="$extensions/noctalia.noctaliatheme-0.0.5"
+    if [ ! -e "$theme_dir/package.json" ]; then
+      run mkdir -p "$theme_dir"
+      run cp -r -n --no-preserve=mode ${noctaliaTheme}/share/vscode/extensions/noctalia.noctaliatheme/. "$theme_dir"
+      run rm -f $VERBOSE_ARG "$extensions/extensions.json"
+    fi
+  '';
 }

@@ -4,7 +4,6 @@
   imports = [
     ./modules/home/home-manager.nix
     ./modules/home/packages
-    ./modules/home/catppuccin.nix
     ./modules/home/niri.nix
     ./modules/home/zsh.nix
     ./modules/home/git.nix

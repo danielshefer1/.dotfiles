@@ -165,6 +165,8 @@
             "fzf"
             "vscode"
             "spicetify"
+            "zen-browser"
+            "bat"
           ];
           # Replaces the builtin kitty template, whose hook edits kitty.conf (a read-only store
           # symlink) and so never reaches its reload. kitty.nix includes the rendered file.
