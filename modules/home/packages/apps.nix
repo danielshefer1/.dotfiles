@@ -9,5 +9,6 @@
     remmina
     bitwarden-desktop
     vesktop
+    karere
   ];
 }

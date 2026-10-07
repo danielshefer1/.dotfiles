@@ -24,23 +24,14 @@ in
       # writes into starship.toml (Catppuccin-compatible names)
       palette = "noctalia";
 
+      # Each segment is a self-contained pill, so its colors never depend on its neighbours. The
+      # ( ) groups render only when a module inside them has output, so e.g. the git pill vanishes
+      # outside a repo instead of leaving an empty block.
       format = builtins.concatStringsSep "" [
-        "[](fg:blue)"
-        "$os"
-        "$username"
-        "[](fg:blue bg:surface0)"
-        "$directory"
-        "[](fg:surface0 bg:green)"
-        "$git_branch"
-        "$git_status"
-        "[](fg:green bg:yellow)"
-        "$c"
-        "$rust"
-        "$golang"
-        "$nodejs"
-        "$python"
-        "$nix_shell"
-        "[](fg:yellow)"
+        "[](fg:blue)$os$username[](fg:blue) "
+        "[](fg:surface0)$directory[](fg:surface0) "
+        "([](fg:green)$git_branch$git_status[](fg:green) )"
+        "([](fg:yellow)$c$rust$golang$nodejs$python$nix_shell[](fg:yellow))"
         "$fill"
         "$cmd_duration"
         "$line_break"
@@ -109,6 +100,18 @@ in
 
       c = {
         symbol = " ";
+        style = "bg:yellow fg:base";
+        format = "[ $symbol($version) ]($style)";
+      };
+
+      golang = {
+        symbol = " ";
+        style = "bg:yellow fg:base";
+        format = "[ $symbol($version) ]($style)";
+      };
+
+      nodejs = {
+        symbol = " ";
         style = "bg:yellow fg:base";
         format = "[ $symbol($version) ]($style)";
       };

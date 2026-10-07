@@ -6,6 +6,29 @@
   ...
 }:
 
+let
+  keepGuiTheme = pkgs.writers.writePython3 "noctalia-keep-gui-theme" {
+    libraries = [ pkgs.python3Packages.tomli-w ];
+  } ''
+    import sys
+    import tomllib
+
+    import tomli_w
+
+    src, dest = sys.argv[1:]
+    with open(src, "rb") as f:
+        old = tomllib.load(f)
+
+    theme = old.get("theme", {})
+    theme.pop("templates", None)
+    if theme:
+        kept = {"theme": theme}
+        if "config_version" in old:
+            kept = {"config_version": old["config_version"], **kept}
+        with open(dest, "wb") as f:
+            tomli_w.dump(kept, f)
+  '';
+in
 {
   imports = [
     inputs.noctalia.homeModules.default
@@ -14,10 +37,13 @@
   # Settings GUI changes land in settings.toml, which overrides config.toml. Move it aside on every
   # switch so this file stays the source of truth; GUI tweaks last until the next rebuild.
   # Diff the .bak against `noctalia config export` to find tweaks worth porting here.
+  # The exception is the palette/mode picked in the GUI: [theme] (minus the declarative
+  # theme.templates) is carried over, so the theme is each user's choice rather than this file's.
   home.activation.resetNoctaliaGuiSettings = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     settings="${config.xdg.stateHome}/noctalia/settings.toml"
     if [ -e "$settings" ]; then
       run mv $VERBOSE_ARG "$settings" "$settings.bak"
+      run ${keepGuiTheme} "$settings.bak" "$settings"
     fi
   '';
 
@@ -141,12 +167,9 @@
         greeter_sync.auto_sync = true;
       };
 
+      # Palette, mode and scheme are deliberately not set here: pick them in the settings GUI
+      # (they survive rebuilds, see resetNoctaliaGuiSettings). Templates follow whatever is active.
       theme = {
-        mode = "dark";
-        source = "community";
-        community_palette = "Tomorrow";
-        builtin = "Catppuccin";
-        wallpaper_scheme = "m3-content";
         templates = {
           builtin_ids = [
             "btop"
@@ -164,7 +187,6 @@
             "fastfetch"
             "fzf"
             "vscode"
-            "spicetify"
             "zen-browser"
             "bat"
           ];
@@ -174,6 +196,12 @@
             input_path = "${config.programs.noctalia.package}/share/noctalia/assets/templates/kitty/kitty.conf";
             output_path = "${config.xdg.configHome}/kitty/themes/noctalia.conf";
             post_hook = "pkill -USR1 kitty || true";
+          };
+          # Used instead of the community spicetify template, which runs `spicetify apply` against a
+          # writable Spotify install; spicetify.nix links Spotify's colors.css to this output.
+          user.spotify = {
+            input_path = "${./noctalia-templates/spicetify-colors.css}";
+            output_path = "${config.xdg.configHome}/spicetify/noctalia-colors.css";
           };
         };
       };
