@@ -5,35 +5,81 @@
     inputs.noctalia.homeModules.default
   ];
 
+  # Written to ~/.config/noctalia/config.toml. Changes made in the Settings GUI land in
+  # ~/.local/state/noctalia/settings.toml and override these; port them here and delete that file.
+  # `noctalia config export` shows the merged result.
   programs.noctalia = {
     enable = true;
 
     settings = {
-      bar = {
+      audio.enable_overdrive = true;
+
+      bar.main = {
         position = "top";
-        density = "compact";
-        widgets = {
-          left = [
-            { id = "ControlCenter"; useDistroLogo = true; }
-            { id = "Workspace"; hideUnoccupied = false; }
-          ];
-          center = [
-            { id = "Clock"; formatHorizontal = "HH:mm"; usePrimaryColor = true; }
-          ];
-          right = [
-            { id = "Network"; }
-            { id = "Bluetooth"; }
-            { id = "Battery"; warningThreshold = 20; }
-          ];
+        start = [ "launcher" "wallpaper" "mpvpaper" "workspaces" "ribbon" ];
+        center = [ "nix-monitor" "media" "audio_visualizer" "notifications" "clipboard" "color-picker" "calculator" ];
+        end = [ "network" "sysmon" "bluetooth" "volume" "control-center" "session" ];
+      };
+
+      # Plugin widget instances referenced from the bar above
+      widget = {
+        mpvpaper.type = "noctalia/mpvpaper:mpvpaper";
+        nix-monitor.type = "avivbintangaringga/nix-monitor:nix-monitor";
+        ribbon.type = "luochen1990/niri-ribbon:ribbon";
+        color-picker.type = "oldirtty/color_picker:widget";
+        calculator.type = "samuelskovbakke/calculator-plus:widget";
+      };
+
+      plugins.enabled = [
+        "avivbintangaringga/nix-monitor"
+        "oldirtty/color_picker"
+        "noctalia/mpvpaper"
+        "luochen1990/niri-ribbon"
+        "samuelskovbakke/calculator-plus"
+      ];
+
+      plugin_settings."avivbintangaringga/nix-monitor".update_command =
+        "nix flake update --flake /home/daniels/.dotfiles/ && nix-git-rebuild";
+
+      control_center.shortcuts = [
+        { type = "bluetooth"; }
+        { type = "notification"; }
+      ];
+
+      idle = {
+        behavior_order = [ "lock" "screen-off" "lock-and-suspend" ];
+        behavior = {
+          lock = { action = "lock"; enabled = true; timeout = 600.0; };
+          screen-off = { action = "screen_off"; enabled = true; timeout = 660.0; };
+          lock-and-suspend = { action = "lock_and_suspend"; enabled = true; timeout = 900.0; };
         };
       };
 
-      # Push wallpaper/palette/font changes to noctalia-greeter automatically
-      shell.greeter_sync.auto_sync = true;
+      location.auto_locate = true;
 
-      colorSchemes = {
-        predefinedScheme = "Monochrome";
+      notification.background_opacity = 0.8;
+
+      shell = {
+        polkit_agent = true;
+        screen_corners.enabled = true;
+        screenshot.confirm_region = true;
+        # Push wallpaper/palette/font changes to noctalia-greeter automatically
+        greeter_sync.auto_sync = true;
       };
+
+      theme = {
+        mode = "dark";
+        source = "community";
+        community_palette = "Tomorrow";
+        builtin = "Catppuccin";
+        wallpaper_scheme = "m3-content";
+        templates = {
+          builtin_ids = [ "btop" "gtk3" "gtk4" "kitty" "niri" "qt" "starship" ];
+          community_ids = [ "claude-code" "discord" "prismlauncher" "steam" "fastfetch" "mailspring" ];
+        };
+      };
+
+      wallpaper.default.path = "/home/daniels/Pictures/Wallpapers/1004017-colorized.png";
     };
   };
 }
