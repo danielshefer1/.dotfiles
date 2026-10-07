@@ -31,7 +31,7 @@ in
       # outside a repo instead of leaving an empty block.
       format = builtins.concatStringsSep "" [
         "[](fg:blue)$os$username[](fg:blue) "
-        "[](fg:surface1)$directory[](fg:surface1) "
+        "[](fg:surface2)$directory[](fg:surface2) "
         "([](fg:green)$git_branch$git_status[](fg:green) )"
         "([](fg:yellow)$c$rust$golang$nodejs$python$nix_shell[](fg:yellow))"
         "$fill"
@@ -72,7 +72,7 @@ in
       };
 
       directory = {
-        style = "bg:surface1 fg:text";
+        style = "bg:surface2 fg:text";
         format = "[ $path ]($style)";
         truncation_length = 3;
       };
@@ -137,7 +137,9 @@ in
   home.file.${cfg.configPath}.enable = lib.mkForce false;
   home.activation.starshipWritableConfig = lib.hm.dag.entryAfter [ "linkGeneration" ] ''
     run rm -f $VERBOSE_ARG "${cfg.configPath}"
-    run install -m644 ${(pkgs.formats.toml { }).generate "starship.toml" cfg.settings} "${cfg.configPath}"
+    run install -m644 ${
+      (pkgs.formats.toml { }).generate "starship.toml" cfg.settings
+    } "${cfg.configPath}"
     run ${pkgs.bash}/bin/bash ${noctaliaApply} || true
   '';
 }
