@@ -175,9 +175,12 @@ in
         greeter_sync.auto_sync = true;
       };
 
-      # Palette, mode and scheme are deliberately not set here: pick them in the settings GUI
-      # (they survive rebuilds, see resetNoctaliaGuiSettings). Templates follow whatever is active.
+      # Only the default theme: anything picked in the settings GUI overrides it and survives
+      # rebuilds (see resetNoctaliaGuiSettings). Templates follow whatever is active.
       theme = {
+        mode = "dark";
+        source = "community";
+        community_palette = "One Dark Two";
         templates = {
           builtin_ids = [
             "btop"
