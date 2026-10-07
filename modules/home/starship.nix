@@ -9,6 +9,17 @@
 let
   cfg = config.programs.starship;
   noctaliaApply = "${config.programs.noctalia.package}/share/noctalia/assets/templates/starship/apply.sh";
+  hookPath = lib.makeBinPath (
+    with pkgs;
+    [
+      coreutils
+      diffutils
+      findutils
+      gawk
+      gnugrep
+      gnused
+    ]
+  );
 in
 {
   programs.starship = {
@@ -24,14 +35,15 @@ in
       # writes into starship.toml (Catppuccin-compatible names)
       palette = "noctalia";
 
-      # Pills use surface1, not surface0: noctalia maps surface0 to the terminal background, and
-      # kitty renders cells with that exact background as transparent (background_opacity).
+      # Pills use accent colors only. The neutral names (surface*, overlay*, base, ...) map to the
+      # terminal background/black, which many palettes make identical to the background, and kitty
+      # renders cells with that exact background as transparent (background_opacity).
       # Each segment is a self-contained pill, so its colors never depend on its neighbours. The
       # ( ) groups render only when a module inside them has output, so e.g. the git pill vanishes
       # outside a repo instead of leaving an empty block.
       format = builtins.concatStringsSep "" [
         "[](fg:blue)$os$username[](fg:blue) "
-        "[](fg:surface2)$directory[](fg:surface2) "
+        "[](fg:magenta)$directory[](fg:magenta) "
         "([](fg:green)$git_branch$git_status[](fg:green) )"
         "([](fg:yellow)$c$rust$golang$nodejs$python$nix_shell[](fg:yellow))"
         "$fill"
@@ -72,7 +84,7 @@ in
       };
 
       directory = {
-        style = "bg:surface2 fg:text";
+        style = "bg:magenta fg:base";
         format = "[ $path ]($style)";
         truncation_length = 3;
       };
@@ -140,6 +152,7 @@ in
     run install -m644 ${
       (pkgs.formats.toml { }).generate "starship.toml" cfg.settings
     } "${cfg.configPath}"
-    run ${pkgs.bash}/bin/bash ${noctaliaApply} || true
+    # Activation's PATH lacks awk and friends, which the hook needs
+    run ${pkgs.coreutils}/bin/env PATH="${hookPath}:$PATH" ${pkgs.bash}/bin/bash ${noctaliaApply} || true
   '';
 }
