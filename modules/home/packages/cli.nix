@@ -13,5 +13,6 @@
     fd
     fzf
     fastfetch
+    nixos-facter
   ];
 }
