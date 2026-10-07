@@ -46,10 +46,14 @@
       home-manager,
       ...
     }@inputs:
+    let
+      # Passed to every module so each folder's default.nix can import its siblings
+      importDir = import ./lib/import-dir.nix;
+    in
     {
       nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        specialArgs = { inherit inputs; };
+        specialArgs = { inherit inputs importDir; };
         modules = [
           ./configuration.nix
           niri.nixosModules.niri
@@ -59,7 +63,7 @@
             home-manager = {
               useGlobalPkgs = true;
               useUserPackages = true;
-              extraSpecialArgs = { inherit inputs; };
+              extraSpecialArgs = { inherit inputs importDir; };
               users.daniels = import ./home.nix;
               backupFileExtension = "backup";
             };

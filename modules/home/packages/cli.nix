@@ -10,5 +10,8 @@
     zip
     usbutils
     jq
+    fd
+    fzf
+    fastfetch
   ];
 }

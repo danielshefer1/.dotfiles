@@ -15,9 +15,4 @@
     LC_TELEPHONE = "he_IL.UTF-8";
     LC_TIME = "he_IL.UTF-8";
   };
-
-  services.xserver.xkb = {
-    layout = "us,il";
-    variant = "";
-  };
 }

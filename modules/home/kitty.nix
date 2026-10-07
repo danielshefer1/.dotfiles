@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ ... }:
 
 {
   programs.kitty = {
@@ -35,11 +35,7 @@
       "ctrl+0" = "change_font_size all 0";
     };
 
-    # Colors rendered by noctalia's kitty template (see noctalia.nix)
+    # Colors rendered by noctalia's kitty template (see noctalia/templates/kitty.nix)
     extraConfig = "include themes/noctalia.conf";
   };
-
-  home.packages = with pkgs; [
-    nerd-fonts.jetbrains-mono
-  ];
 }

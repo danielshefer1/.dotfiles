@@ -9,7 +9,7 @@ let
   spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.stdenv.hostPlatform.system};
   cfg = config.programs.spicetify;
 
-  # Rendered by noctalia (see noctalia.nix). Spotify reads it at startup, so palette changes show
+  # Rendered by noctalia (see noctalia/templates/spotify.nix). Spotify reads it at startup, so palette changes show
   # up after restarting Spotify.
   noctaliaColors = "${config.xdg.configHome}/spicetify/noctalia-colors.css";
 in
