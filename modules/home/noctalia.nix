@@ -1,13 +1,21 @@
-{ inputs, ... }:
+{ config, inputs, lib, ... }:
 
 {
   imports = [
     inputs.noctalia.homeModules.default
   ];
 
-  # Written to ~/.config/noctalia/config.toml. Changes made in the Settings GUI land in
-  # ~/.local/state/noctalia/settings.toml and override these; port them here and delete that file.
-  # `noctalia config export` shows the merged result.
+  # Settings GUI changes land in settings.toml, which overrides config.toml. Move it aside on every
+  # switch so this file stays the source of truth; GUI tweaks last until the next rebuild.
+  # Diff the .bak against `noctalia config export` to find tweaks worth porting here.
+  home.activation.resetNoctaliaGuiSettings = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    settings="${config.xdg.stateHome}/noctalia/settings.toml"
+    if [ -e "$settings" ]; then
+      run mv $VERBOSE_ARG "$settings" "$settings.bak"
+    fi
+  '';
+
+  # Written to ~/.config/noctalia/config.toml
   programs.noctalia = {
     enable = true;
 
