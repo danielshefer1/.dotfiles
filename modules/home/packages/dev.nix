@@ -12,5 +12,6 @@
     libqalculate
     nodejs_latest
     pipx
+    mcp-nixos
   ];
 }
