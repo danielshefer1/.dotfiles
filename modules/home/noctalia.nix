@@ -213,6 +213,11 @@ in
             input_path = "${./noctalia-templates/spicetify-colors.css}";
             output_path = "${config.xdg.configHome}/spicetify/noctalia-colors.css";
           };
+          # Sourced by zsh.nix
+          user.zsh-autosuggest = {
+            input_path = "${./noctalia-templates/zsh-autosuggest.zsh}";
+            output_path = "${config.xdg.configHome}/zsh/noctalia-autosuggest.zsh";
+          };
         };
       };
 

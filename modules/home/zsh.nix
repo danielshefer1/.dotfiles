@@ -39,6 +39,10 @@
       # fzf colors rendered by noctalia's fzf template
       [ -r "''${XDG_CONFIG_HOME:-$HOME/.config}/fzf/themes/noctalia.sh" ] \
         && source "''${XDG_CONFIG_HOME:-$HOME/.config}/fzf/themes/noctalia.sh"
+
+      # Autosuggestion color rendered by noctalia (see noctalia.nix)
+      [ -r "''${XDG_CONFIG_HOME:-$HOME/.config}/zsh/noctalia-autosuggest.zsh" ] \
+        && source "''${XDG_CONFIG_HOME:-$HOME/.config}/zsh/noctalia-autosuggest.zsh"
     '';
   };
 
