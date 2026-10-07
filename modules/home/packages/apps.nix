@@ -10,5 +10,6 @@
     google-chrome
     remmina
     bitwarden-desktop
+    vesktop
   ];
 }
