@@ -13,6 +13,8 @@
     impression
     mpvpaper
     mpv
+    # mpvpaper plugin extracts the video's frame for the lock screen/greeter with it
+    ffmpeg
     socat
     hyprpicker
     nix-search-tv
