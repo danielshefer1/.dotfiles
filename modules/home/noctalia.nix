@@ -162,6 +162,9 @@
             "prismlauncher"
             "steam"
             "fastfetch"
+            "fzf"
+            "vscode"
+            "spicetify"
           ];
           # Replaces the builtin kitty template, whose hook edits kitty.conf (a read-only store
           # symlink) and so never reaches its reload. kitty.nix includes the rendered file.
