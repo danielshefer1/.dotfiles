@@ -60,6 +60,10 @@ in
     fi
   '';
 
+  # The gtk3 template defines libadwaita-style colors (window_bg_color, ...), which only the
+  # adw-gtk3 theme reads; its hook selects adw-gtk3/adw-gtk3-dark to match the mode.
+  home.packages = [ pkgs.adw-gtk3 ];
+
   # Point qt5ct/qt6ct at the color schemes rendered by the qt template
   qt = {
     enable = true;
@@ -187,13 +191,11 @@ in
             "claude-code"
             "discord"
             "prismlauncher"
-            "steam"
             "fastfetch"
             "fzf"
             "vscode"
             "zen-browser"
             "bat"
-            "karere"
           ];
           # Replaces the builtin kitty template, whose hook edits kitty.conf (a read-only store
           # symlink) and so never reaches its reload. kitty.nix includes the rendered file.
