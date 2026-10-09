@@ -215,6 +215,7 @@
         "noctalia": "noctalia",
         "nur": "nur",
         "spicetify-nix": "spicetify-nix",
+        "torlink": "torlink",
         "zen-browser": "zen-browser"
       }
     },
@@ -251,6 +252,26 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
+        "type": "github"
+      }
+    },
+    "torlink": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1791396483,
+        "narHash": "sha256-IpQf7QjIF0FfHoMBUPt0w4HMkq4uZ/C1IOFA5onxXvk=",
+        "owner": "baairon",
+        "repo": "torlink",
+        "rev": "210387185b349e1cf75755c60711760f8587832a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "baairon",
+        "repo": "torlink",
         "type": "github"
       }
     },

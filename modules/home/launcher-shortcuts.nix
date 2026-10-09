@@ -20,9 +20,9 @@ in
   # Picked up by the Noctalia launcher (and anything else reading .desktop files)
   xdg.desktopEntries = {
     torlnk = {
-      name = "torlnk";
-      comment = "Run torlnk";
-      exec = inKitty "torlnk" "npx torlnk";
+      name = "Torlnk";
+      comment = "Torlnk";
+      exec = inKitty "torlnk" "torlnk";
       icon = "${torlnkIcon}";
       categories = [ "Utility" ];
     };

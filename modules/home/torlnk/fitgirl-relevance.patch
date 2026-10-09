@@ -1,0 +1,44 @@
+diff --git a/src/sources/rss.test.ts b/src/sources/rss.test.ts
+index 6da30dc..5829e33 100644
+--- a/src/sources/rss.test.ts
++++ b/src/sources/rss.test.ts
+@@ -91,16 +91,16 @@ describe("fetchWordpressRss", () => {
+     await expect(fetchWordpressRss("https://x.site", "fitgirl", "")).rejects.toThrow("404");
+   });
+ 
+-  it("builds search urls with the query and pages with &paged=", async () => {
++  it("builds relevance-sorted search urls and pages with &paged=", async () => {
+     mockFetch
+       .mockResolvedValueOnce(page(feed(...hashes(10, "a").map(item))))
+       .mockResolvedValueOnce(page(feed()))
+       .mockResolvedValueOnce(page(feed()));
+     await fetchWordpressRss("https://x.site", "fitgirl", "elden ring");
+     expect(mockFetch.mock.calls.map((c) => c[0])).toEqual([
+-      "https://x.site/?s=elden%20ring&feed=rss2",
+-      "https://x.site/?s=elden%20ring&feed=rss2&paged=2",
+-      "https://x.site/?s=elden%20ring&feed=rss2&paged=3",
++      "https://x.site/?s=elden%20ring&feed=rss2&orderby=relevance",
++      "https://x.site/?s=elden%20ring&feed=rss2&orderby=relevance&paged=2",
++      "https://x.site/?s=elden%20ring&feed=rss2&orderby=relevance&paged=3",
+     ]);
+   });
+ });
+diff --git a/src/sources/rss.ts b/src/sources/rss.ts
+index e523a51..f3c6e9d 100644
+--- a/src/sources/rss.ts
++++ b/src/sources/rss.ts
+@@ -34,10 +34,13 @@ const WP_FEED_PAGE_SIZE = 10;
+ const FEED_DEPTH = 3;
+ const DEEP_PAGE_RETRIES = 2;
+ 
++// WordPress sorts search feeds by date, so without orderby=relevance an older
++// post with an exact title match sinks below FEED_DEPTH pages of newer posts
++// that merely mention the query's words.
+ function feedUrl(base: string, query: string, page: number): string {
+   const q = query.trim();
+   const url = q
+-    ? `${base}/?s=${encodeURIComponent(q)}&feed=rss2`
++    ? `${base}/?s=${encodeURIComponent(q)}&feed=rss2&orderby=relevance`
+     : `${base}/feed/`;
+   if (page <= 1) return url;
+   return `${url}${q ? "&" : "?"}paged=${page}`;
