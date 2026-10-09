@@ -12,5 +12,6 @@ in
         patches = (old.patches or [ ]) ++ [ ./fitgirl-relevance.patch ];
       }))
     */
+    torlink
   ];
 }
