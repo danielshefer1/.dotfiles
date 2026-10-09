@@ -14,5 +14,6 @@
     fzf
     fastfetch
     nixos-facter
+    graphify
   ];
 }
