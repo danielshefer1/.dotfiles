@@ -10,5 +10,6 @@
     bitwarden-desktop
     vesktop
     karere
+    obsidian
   ];
 }
