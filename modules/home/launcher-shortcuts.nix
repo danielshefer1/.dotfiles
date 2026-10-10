@@ -29,7 +29,7 @@ in
 
     fzf-claude = {
       name = "Claude Code";
-      comment = "Pick a directory and start Claude Code there";
+      comment = "lets start gossiping about code with claude";
       exec = inKitty "fzf-claude" "fzf-claude";
       icon = "${claudeIcon}";
       categories = [ "Development" ];
