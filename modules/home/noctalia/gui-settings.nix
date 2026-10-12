@@ -25,9 +25,8 @@ let
 
         old.get("theme", {}).pop("templates", None)
         kept = {k: old[k] for k in KEEP if old.get(k)}
+        # No config_version: a newer one makes noctalia reject the whole config
         if kept:
-            if "config_version" in old:
-                kept = {"config_version": old["config_version"], **kept}
             with open(dest, "wb") as f:
                 tomli_w.dump(kept, f)
       '';
