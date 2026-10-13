@@ -6,7 +6,6 @@
     postgresql_16
     railway
     github-cli
-    claude-code
     cloudflared
     python3
     libqalculate
