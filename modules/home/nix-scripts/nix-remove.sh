@@ -37,12 +37,8 @@ done <<< "$(cut -f2 <<< "$selected" | sort -u)"
 names=$(cut -f1 <<< "$selected" | paste -sd' ')
 echo "Removed $names" >&2
 
-git -C "$dotfiles" add . \
-  && git -C "$dotfiles" commit -m "Remove $names" \
-  || true
-
 # Rebuild first so the removed packages drop out of the current
 # generation, then clean (same as the nix-clean alias).
-sudo nixos-rebuild switch --flake "$dotfiles#nixos"
+DOTFILES="$dotfiles" nix-git-rebuild "Remove $names"
 sudo nix-collect-garbage -d
 nix-collect-garbage -d

@@ -31,6 +31,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nixos-hardware = {
+      url = "github:NixOS/nixos-hardware";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     torlink = {
       url = "github:baairon/torlink";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -51,24 +56,30 @@
       importDir = import ./lib/import-dir.nix;
     in
     {
-      nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = { inherit inputs importDir; };
-        modules = [
-          ./configuration.nix
-          niri.nixosModules.niri
+      # One configuration per folder in hosts/; the folder name is also the hostname,
+      # so `nixos-rebuild switch --flake ~/.dotfiles` picks the right one on each machine
+      nixosConfigurations = nixpkgs.lib.genAttrs (builtins.attrNames (builtins.readDir ./hosts)) (
+        host:
+        nixpkgs.lib.nixosSystem {
+          specialArgs = { inherit inputs importDir; };
+          modules = [
+            ./hosts/${host}
+            ./modules/system
+            { networking.hostName = host; }
+            niri.nixosModules.niri
 
-          home-manager.nixosModules.home-manager
-          {
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              extraSpecialArgs = { inherit inputs importDir; };
-              users.daniels = import ./home.nix;
-              backupFileExtension = "backup";
-            };
-          }
-        ];
-      };
+            home-manager.nixosModules.home-manager
+            {
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                extraSpecialArgs = { inherit inputs importDir; };
+                users.daniels = import ./home.nix;
+                backupFileExtension = "backup";
+              };
+            }
+          ];
+        }
+      );
     };
 }

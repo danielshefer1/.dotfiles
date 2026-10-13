@@ -95,10 +95,4 @@ else
   echo "Added '$pkg' to $topic" >&2
 fi
 
-# Same as the nix-git alias; `|| true` mirrors the `;` in nix-git-rebuild,
-# so the rebuild still runs even if there's nothing to commit.
-git -C "$dotfiles" add . \
-  && git -C "$dotfiles" commit -m "Add $pkg to $topic" \
-  || true
-
-exec sudo nixos-rebuild switch --flake "$dotfiles#nixos"
+DOTFILES="$dotfiles" exec nix-git-rebuild "Add $pkg to $topic"

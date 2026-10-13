@@ -6,6 +6,10 @@
 
 ## 2. Files are organized by folders
 - System-level config goes in `modules/system/`, user-level (home-manager) config in `modules/home/`.
+  Both are shared by every machine.
+- Config for one machine only (hardware-configuration.nix, GPU drivers, …) goes in `hosts/<hostname>/`.
+  Every folder in `hosts/` becomes a `nixosConfigurations.<hostname>` in `flake.nix`, and its name is
+  also set as the hostname.
 - Group related files in a folder rather than leaving them loose (e.g. `modules/home/packages/`).
 
 ## 3. Each app gets its own folder
