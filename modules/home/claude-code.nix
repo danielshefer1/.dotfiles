@@ -26,6 +26,7 @@
         "pyright-lsp@claude-plugins-official" = true;
         "claude-md-management@claude-plugins-official" = true;
         "claude-security@claude-plugins-official" = true;
+        "frontend-design@claude-plugins-official" = true;
         "ponytail@ponytail" = true;
       };
 
