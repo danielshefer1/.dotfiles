@@ -18,6 +18,5 @@
     socat
     hyprpicker
     nix-search-tv
-    inputs.torlink.packages.${pkgs.stdenv.hostPlatform.system}.default
   ];
 }

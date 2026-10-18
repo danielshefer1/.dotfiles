@@ -215,7 +215,6 @@
         "nixpkgs": "nixpkgs_2",
         "nur": "nur",
         "spicetify-nix": "spicetify-nix",
-        "torlink": "torlink",
         "zen-browser": "zen-browser"
       }
     },
@@ -252,26 +251,6 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
-        "type": "github"
-      }
-    },
-    "torlink": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1791591631,
-        "narHash": "sha256-JqEsV5/cTqg7dnlIqbqpoaN2yZjFRmSmFEhyytcO8ec=",
-        "owner": "baairon",
-        "repo": "torlink",
-        "rev": "d7b493096329a0ad1148179a1867566ecffb4b5d",
-        "type": "github"
-      },
-      "original": {
-        "owner": "baairon",
-        "repo": "torlink",
         "type": "github"
       }
     },

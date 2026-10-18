@@ -5,10 +5,6 @@ let
     url = "https://cdn.jsdelivr.net/npm/@lobehub/icons-static-svg@1.95.1/icons/claude-color.svg";
     hash = "sha256-oxAfMEehGaoRglrZNpUQ8MRyQoyMUtQg4xvGLbRKg2Q=";
   };
-  torlnkIcon = pkgs.fetchurl {
-    url = "https://torlink.bairon.dev/favicon.svg";
-    hash = "sha256-qm7nhPodkS+o6Ci9K+eRUktxxIO2mnvQnS99OiZxRW4=";
-  };
 
   # Opens `cmd` in kitty. On a non-zero exit the window waits for Enter, so
   # errors (e.g. a failed rebuild) stay readable instead of vanishing.
@@ -19,14 +15,6 @@ in
 {
   # Picked up by the Noctalia launcher (and anything else reading .desktop files)
   xdg.desktopEntries = {
-    torlnk = {
-      name = "Torlnk";
-      comment = "Torlnk";
-      exec = inKitty "torlnk" "torlnk";
-      icon = "${torlnkIcon}";
-      categories = [ "Utility" ];
-    };
-
     fzf-claude = {
       name = "Claude Code";
       comment = "lets start gossiping about code with claude";
