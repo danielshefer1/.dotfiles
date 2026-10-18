@@ -12,7 +12,8 @@
     };
 
     zen-browser = {
-      url = "github:youwen5/zen-browser-flake";
+      # shortcut: pinned to 1.23.2b because upstream 1.23.3b has a bad hash (youwen5/zen-browser-flake#22), unpin once #23 merges
+      url = "github:youwen5/zen-browser-flake/458cd16116c362a5e92d5db6bdc3599e4e8b1f4a";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
