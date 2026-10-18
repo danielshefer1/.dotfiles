@@ -12,10 +12,10 @@
     nodejs_latest
     pipx
     mcp-nixos
-    cargo # Rust Package Manager
-    rustc # Rust Compiler
-    rustfmt # Code Formatter for Rust
-    gcc # C Linker required by rustc
+    cargo
+    rustc
+    rustfmt
+    gcc
     uv
   ];
 }

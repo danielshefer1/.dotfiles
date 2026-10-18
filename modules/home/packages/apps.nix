@@ -6,7 +6,6 @@
     onlyoffice-desktopeditors
     qalculate-gtk
     google-chrome
-    remmina
     bitwarden-desktop
     vesktop
     karere
