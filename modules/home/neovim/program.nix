@@ -31,6 +31,21 @@
       nixfmt
       clang-tools # clangd, clang-format
       nasm
+      rust-analyzer
+      pyright
+      ruff
+      vtsls
+      dockerfile-language-server
+      docker-compose-language-service
+      hadolint
+      vscode-langservers-extracted # jsonls
+      yaml-language-server
+      taplo
+      marksman
+      markdownlint-cli2
+      bash-language-server
+      shellcheck
+      shfmt
     ];
   };
 
