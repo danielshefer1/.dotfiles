@@ -32,7 +32,7 @@
     };
 
     initContent = ''
-      export EDITOR="vim"
+      export EDITOR="neovim"
 
       # fzf colors rendered by noctalia's fzf template
       [ -r "''${XDG_CONFIG_HOME:-$HOME/.config}/fzf/themes/noctalia.sh" ] \

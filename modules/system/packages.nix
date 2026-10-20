@@ -3,7 +3,7 @@
 {
   # Core System Packages
   environment.systemPackages = with pkgs; [
-    vim
+    neovim
     wget
     git
     inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default

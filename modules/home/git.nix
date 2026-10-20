@@ -16,7 +16,7 @@
       fetch.prune = true;
       # Authenticate HTTPS pushes with the token from `gh auth login`
       credential."https://github.com".helper = "!gh auth git-credential";
-      core.editor = "vim";
+      core.editor = "neovim";
 
       alias = {
         st = "status";
