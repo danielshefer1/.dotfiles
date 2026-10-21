@@ -46,6 +46,11 @@
       bash-language-server
       shellcheck
       shfmt
+      # Debug adapters for the dap.core extra
+      vscode-extensions.vadimcn.vscode-lldb.adapter # codelldb (C/C++, Rust)
+      python3Packages.debugpy # debugpy-adapter
+      # LazyVim calls Mason's name for vscode-js-debug's dapDebugServer
+      (writeShellScriptBin "js-debug-adapter" ''exec ${vscode-js-debug}/bin/js-debug "$@"'')
     ];
   };
 
