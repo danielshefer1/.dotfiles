@@ -71,7 +71,7 @@
 
     "Mod+Q".action.spawn = [ "kitty" ];
     "Mod+Slash".action.spawn = [ "kitty" ];
-    "Mod+B".action.spawn = [ "zen" ];
+    "Mod+B".action.spawn = [ "zen-beta" ];
     "Ctrl+Shift+Escape".action.spawn = [
       "kitty"
       "-e"
