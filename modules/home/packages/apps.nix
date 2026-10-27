@@ -10,6 +10,5 @@
     vesktop
     karere
     obsidian
-    nur.repos.trev.helium
   ];
 }
