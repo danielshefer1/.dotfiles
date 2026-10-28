@@ -37,6 +37,10 @@
       ribbon.type = "luochen1990/niri-ribbon:ribbon";
       color-picker.type = "oldirtty/color_picker:widget";
       calculator.type = "samuelskovbakke/calculator-plus:widget";
+
+      # Built-in widgets (type defaults to the instance name)
+      audio_visualizer.show_wave = true;
+      sysmon.show_cpu_cores = true;
     };
   };
 }

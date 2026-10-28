@@ -6,6 +6,6 @@
   programs.noctalia.settings.theme = {
     mode = "dark";
     source = "community";
-    community_palette = "Paradise";
+    community_palette = "Tomorrow";
   };
 }
