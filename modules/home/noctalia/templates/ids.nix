@@ -9,7 +9,6 @@
       "gtk4"
       "niri"
       "qt"
-      "starship"
     ];
     community_ids = [
       "claude-code"
@@ -20,6 +19,7 @@
       "vscode"
       "zen-browser"
       "bat"
+      "starship"
     ];
   };
 }

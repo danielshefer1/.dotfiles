@@ -7,7 +7,8 @@
 
 let
   cfg = config.programs.starship;
-  noctaliaApply = "${config.programs.noctalia.package}/share/noctalia/assets/templates/starship/apply.sh";
+  # Starship is a community template since noctalia 5.4, downloaded at runtime rather than shipped in the package
+  noctaliaApply = "${config.xdg.stateHome}/noctalia/community-templates/starship/apply.sh";
   hookPath = lib.makeBinPath (
     with pkgs;
     [
