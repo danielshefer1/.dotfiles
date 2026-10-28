@@ -20,6 +20,7 @@
       "zen-browser"
       "bat"
       "starship"
+      "lazyvim"
     ];
   };
 }

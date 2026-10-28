@@ -14,7 +14,6 @@
       center = [
         "nix-monitor"
         "media"
-        "audio_visualizer"
         "notifications"
         "clipboard"
         "color-picker"
@@ -39,7 +38,6 @@
       calculator.type = "samuelskovbakke/calculator-plus:widget";
 
       # Built-in widgets (type defaults to the instance name)
-      audio_visualizer.show_wave = true;
       sysmon.show_cpu_cores = true;
     };
   };
