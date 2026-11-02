@@ -10,5 +10,6 @@
     vesktop
     karere
     obsidian
+    kdePackages.okular
   ];
 }
