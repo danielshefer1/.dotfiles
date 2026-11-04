@@ -5,6 +5,9 @@
     # iNiR aesthetic uses compact, modern gaps
     gaps = 8;
 
+    # Empty = the window picks its own width; left unset, niri falls back to half the screen
+    default-column-width = { };
+
     # Primary active/inactive border styling; colors come from noctalia.kdl
     border = {
       enable = true;
