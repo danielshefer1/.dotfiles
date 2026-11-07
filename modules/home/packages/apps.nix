@@ -11,6 +11,5 @@
     karere
     obsidian
     kdePackages.okular
-    discordo
   ];
 }
