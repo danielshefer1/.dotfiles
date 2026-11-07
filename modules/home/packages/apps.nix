@@ -12,5 +12,6 @@
     obsidian
     kdePackages.okular
     concord
+    concord-tui
   ];
 }
