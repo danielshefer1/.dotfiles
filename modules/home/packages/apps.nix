@@ -7,7 +7,6 @@
     qalculate-gtk
     google-chrome
     bitwarden-desktop
-    vesktop
     karere
     obsidian
     kdePackages.okular
