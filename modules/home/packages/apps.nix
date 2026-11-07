@@ -11,5 +11,6 @@
     karere
     obsidian
     kdePackages.okular
+    concord
   ];
 }
