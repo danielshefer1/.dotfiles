@@ -13,5 +13,6 @@
     concord
     # shortcut: nixpkgs recipe lacks zstd and fails to build, remove once nixpkgs lists it
     (concord-tui.overrideAttrs (old: { buildInputs = old.buildInputs ++ [ zstd ]; }))
+    discord
   ];
 }
